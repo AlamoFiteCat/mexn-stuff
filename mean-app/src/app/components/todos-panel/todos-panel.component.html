@@ -1,0 +1,21 @@
+<app-todo-card
+  (displayTodo)="onDisplayTodo($event)"
+  [currentTodo]="todo"
+  *ngFor="let todo of todos"
+></app-todo-card>
+<hr />
+<div
+  class="todo-card"
+  [ngStyle]="{ 'margin-top': '16px' }"
+  *ngIf="currentDisplayTodo"
+>
+  <div class="todo-card__title">
+    {{ currentDisplayTodo.title }}
+  </div>
+  <div class="todo-card__progress">
+    <progress max="100" [value]="currentDisplayTodo.progress"></progress>
+  </div>
+  <div class="todo-card__description">
+    {{ currentDisplayTodo.description }}
+  </div>
+</div>
