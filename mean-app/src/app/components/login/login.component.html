@@ -1,0 +1,26 @@
+<div class="card">
+  <h1 [ngStyle]="{'font-weight':'100'}">Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+    <div class="control-group">
+      <label class="control-label" for="email">Email</label>
+      <input
+        formControlName="email"
+        class="control-input"
+        id="email"
+        type="text"
+        autocomplete="off"
+      />
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="password">Password</label>
+      <input
+        formControlName="password"
+        class="control-input"
+        id="password"
+        type="password"
+        autocomplete="off"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>

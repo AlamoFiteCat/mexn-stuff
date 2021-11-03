@@ -1,0 +1,56 @@
+<!-- <div class="card">
+    <h1 [ngStyle]="{'font-weight':'100'}">Register</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+      <div class="control-group">
+        <label class="control-label" for="email">Email</label>
+        <input
+          formControlName="email"
+          class="control-input"
+          id="email"
+          type="text"
+          autocomplete="off"
+        />
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <input
+          formControlName="password"
+          class="control-input"
+          id="password"
+          type="password"
+          autocomplete="off"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </div>
+   -->
+   <div class="card">
+    <h1 [ngStyle]="{'font-weight':'100'}">Register</h1>
+    <form #expenseForm="ngForm" (ngSubmit)="onSubmitRegister()">
+      <div class="control-group">
+        <label class="control-label" for="email">Email</label>
+        <input
+          name="email"
+          ngModel
+          class="control-input"
+          id="email"
+          type="text"
+          autocomplete="off"
+        />
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <input
+          name="password"
+          ngModel
+          class="control-input"
+          id="password"
+          type="password"
+          autocomplete="off"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </div>
+  

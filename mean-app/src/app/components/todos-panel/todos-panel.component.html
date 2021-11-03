@@ -15,7 +15,26 @@
   <div class="todo-card__progress">
     <progress max="100" [value]="currentDisplayTodo.progress"></progress>
   </div>
+  <div class="todo-card__date">
+    {{ currentDisplayTodo.date }}
+  </div>
   <div class="todo-card__description">
     {{ currentDisplayTodo.description }}
   </div>
+  <form [formGroup]="progressForm" class="progress-form" (ngSubmit)="onUpdateTodoProgress()">
+    <div class="control-group">
+      <label class="control-label" for="update-progresss"
+        >Update Progress</label
+      >
+      <input
+        formControlName="updateProgress"
+        class="control-input"
+        id="update-progresss"
+        type="text"
+        autocomplete="off"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <button (click)="onDeleteTodo()" class="btn btn-danger" [ngStyle]="{'margin-top': '10px'}">Delete Todo</button>
 </div>

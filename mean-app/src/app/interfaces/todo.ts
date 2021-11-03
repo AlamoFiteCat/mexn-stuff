@@ -1,6 +1,7 @@
 export interface Todo {
-    id: string | number,
+    _id?: string | number,
     title: string,
     progress: number,
-    description?: string
+    description?: string,
+    date: string | Date
 }

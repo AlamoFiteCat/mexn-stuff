@@ -30,11 +30,18 @@ export default class TodosController {
     }
   }
 
-  static async updateTodo(req: Request, res: Response, next: NextFunction) {
-    const todoData = req.body;
+  static async updateTodoProgress(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const todoProgress = req.body.progress;
     const todoID = req.params.id;
     try {
-      const response = await TodosService.updateTodo(todoID, todoData);
+      const response = await TodosService.updateTodoProgress(
+        todoID,
+        todoProgress
+      );
       res.status(200).json(response);
     } catch (error) {
       res.status(500).json(error);

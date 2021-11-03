@@ -3,66 +3,105 @@ import { Injectable } from '@angular/core';
 import { Todo } from '../interfaces/todo';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   todos: Todo[] = [
     {
-      id: 1,
+      _id: 1,
       title: 'Title 1',
       progress: 10,
       description: 'Lorem ipsum dolor sit amet.',
+      date: '2021-10-26',
     },
     {
-      id: 2,
+      _id: 2,
       title: 'Title 2',
       progress: 30,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a.',
+      date: '2021-10-26',
     },
     {
-      id: 3,
+      _id: 3,
       title: 'Title 3',
       progress: 75,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus semper et magna sit amet ornare.',
+      date: '2021-10-26',
     },
     {
-      id: 4,
+      _id: 4,
       title: 'Title 4',
       progress: 100,
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a.',
+      date: '2021-10-26',
     },
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   todosSubject$ = new Subject<Todo[]>();
 
   getAllTodos() {
     // return this.todos;
     this.http
-      .get('http://localhost:3000/todos')
+      .get(`${environment.baseUrl}/todos`)
       .pipe(map((todos) => todos as Todo[]))
-      .subscribe((payload: Todo[]) => {
-        this.todosSubject$.next(payload);
-      });
+      .subscribe(
+        (payload: Todo[]) => {
+          this.todosSubject$.next(payload);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
-  createNewTodo(title: string, description: string) {
+  createNewTodo(title: string, description: string, todoDate: string) {
     const newTodo: Todo = {
-      id: this.todos.length + 1,
       progress: 0,
       title: title,
       description: description,
+      date: todoDate,
     };
+    this.http.post(`${environment.baseUrl}/todos`, newTodo).subscribe(
+      (response) => {
+        this.router.navigate(['todos']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateTodoProgress(progressUpdate: string, _id: string | number | undefined) {
     this.http
-      .post('http://localhost:3000/todos', newTodo)
-      .subscribe((response) => {
-        console.log(response);
-      });
+      .patch(`${environment.baseUrl}/todos/${_id}`, {
+        progress: parseInt(progressUpdate),
+      })
+      .subscribe(
+        (response) => {
+          this.getAllTodos();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  deleteTodo(_id: string | number | undefined) {
+    this.http.delete(`${environment.baseUrl}/todos/${_id}`).subscribe(
+      (response) => {
+        this.getAllTodos();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

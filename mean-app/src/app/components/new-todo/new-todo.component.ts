@@ -12,7 +12,7 @@ export class NewTodoComponent implements OnInit {
   constructor(private todoService: TodoService) {}
 
   todoForm: FormGroup;
-  maxDescriptionLength = 8;
+  maxDescriptionLength = 254;
 
   ngOnInit(): void {
     this.initForm();
@@ -25,12 +25,13 @@ export class NewTodoComponent implements OnInit {
         Validators.required,
         Validators.maxLength(this.maxDescriptionLength),
       ]),
+      todoDate: new FormControl('')
     });
   }
 
   onSubmitForm() {
-    const {todoTitle, todoDescription} = this.todoForm.value;
-    this.todoService.createNewTodo(todoTitle, todoDescription);
+    const {todoTitle, todoDescription, todoDate} = this.todoForm.value;
+    this.todoService.createNewTodo(todoTitle, todoDescription, todoDate);
     this.todoForm.reset();
   }
 }
